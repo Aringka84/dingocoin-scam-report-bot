@@ -2,7 +2,7 @@
 
 A comprehensive Discord bot for reporting and managing scam incidents with MariaDB storage, advanced image processing, and role-based moderation system.
 
-## ✨ Features
+## Features
 
 ### Report System
 - **Comprehensive scam reporting** with evidence collection
@@ -63,7 +63,7 @@ A comprehensive Discord bot for reporting and managing scam incidents with Maria
    npm start
    ```
 
-📖 **For detailed setup instructions:**
+**For detailed setup instructions:**
 - **Ubuntu 24.04**: See [UBUNTU-24.04-SETUP.md](UBUNTU-24.04-SETUP.md)
 - **General setup**: See [SETUP_GUIDE.md](SETUP_GUIDE.md)
 
@@ -84,7 +84,7 @@ A comprehensive Discord bot for reporting and managing scam incidents with Maria
 - `/clearreport` - Delete reports
 - `/exportdb` - Export database to CSV
 
-## 🛠️ Requirements
+## Requirements
 
 - **Node.js** v20.0.0+ (Latest LTS)
 - **MariaDB** v11.4+ (Latest stable)
@@ -92,7 +92,7 @@ A comprehensive Discord bot for reporting and managing scam incidents with Maria
 - **Discord Bot Token**
 - **Server Admin Permissions**
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 dingocoin-scam-report-bot/
@@ -110,7 +110,7 @@ dingocoin-scam-report-bot/
 └── docs/                 # Documentation
 ```
 
-## 🔧 Configuration
+## Configuration
 
 Key environment variables:
 
@@ -145,9 +145,6 @@ LOG_CHANNEL_ID=channel_id
 4. Test thoroughly
 5. Submit a pull request
 
-## 📄 License
-
-This project is provided as-is for educational and community use. Ensure compliance with Discord's Terms of Service.
 
 ##  Support
 
