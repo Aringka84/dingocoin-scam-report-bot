@@ -1,0 +1,68 @@
+version: '3.8'
+
+services:
+  # MariaDB Database
+  mariadb:
+    image: mariadb:10.9
+    container_name: scambot_mariadb
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-rootpassword}
+      MYSQL_DATABASE: ${DB_NAME:-scam_reports}
+      MYSQL_USER: ${DB_USER:-scambot}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-scambot_password}
+    volumes:
+      - mariadb_data:/var/lib/mysql
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    ports:
+      - "3306:3306"
+    networks:
+      - scambot_network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+
+  # Discord Bot
+  scambot:
+    build: .
+    container_name: scambot_app
+    restart: unless-stopped
+    depends_on:
+      mariadb:
+        condition: service_healthy
+    environment:
+      - NODE_ENV=production
+      - DB_HOST=mariadb
+    volumes:
+      - ./uploads:/app/uploads
+      - ./exports:/app/exports
+      - ./logs:/app/logs
+    networks:
+      - scambot_network
+    env_file:
+      - .env
+
+  # Optional: phpMyAdmin for database management
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:5
+    container_name: scambot_phpmyadmin
+    restart: unless-stopped
+    depends_on:
+      - mariadb
+    environment:
+      PMA_HOST: mariadb
+      PMA_PORT: 3306
+      PMA_ARBITRARY: 1
+    ports:
+      - "8080:80"
+    networks:
+      - scambot_network
+
+volumes:
+  mariadb_data:
+    driver: local
+
+networks:
+  scambot_network:
+    driver: bridge

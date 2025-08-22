@@ -1,0 +1,29 @@
+{
+  "name": "dingocoin-scam-report-bot",
+  "version": "1.0.0",
+  "description": "Discord bot for reporting scams with MariaDB storage",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js",
+    "setup": "node src/setup/database.js"
+  },
+  "keywords": ["discord", "bot", "scam", "report", "mariadb"],
+  "author": "Your Name",
+  "license": "MIT",
+  "dependencies": {
+    "discord.js": "^14.14.1",
+    "mariadb": "^3.2.2",
+    "dotenv": "^16.3.1",
+    "sharp": "^0.32.6",
+    "axios": "^1.6.2",
+    "uuid": "^9.0.1",
+    "node-clamav": "^0.17.0",
+    "geoip-lite": "^1.4.7",
+    "csv-writer": "^1.6.0",
+    "moment": "^2.29.4"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
+  }
+}
