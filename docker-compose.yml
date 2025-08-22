@@ -1,9 +1,9 @@
 version: '3.8'
 
 services:
-  # MariaDB Database
+  # MariaDB Database (latest stable version)
   mariadb:
-    image: mariadb:10.9
+    image: mariadb:11.4
     container_name: scambot_mariadb
     restart: unless-stopped
     environment:

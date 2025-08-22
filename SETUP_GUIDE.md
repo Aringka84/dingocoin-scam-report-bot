@@ -19,15 +19,48 @@ A comprehensive Discord bot for reporting and managing scam incidents with Maria
 
 Before setting up the bot, ensure you have:
 
-- **Node.js** (v16.9.0 or higher)
-- **npm** (comes with Node.js)
-- **MariaDB** (v10.4 or higher)
+- **Ubuntu 24.04 LTS** (Noble Numbat) or newer
+- **Node.js** (v20.0.0 or higher - Latest LTS)
+- **npm** (v10.0.0 or higher)
+- **MariaDB** (v11.4 or higher)
 - **Discord Developer Account**
 - **Basic knowledge of Discord server administration**
+- **sudo privileges** on your Ubuntu system
 
 ##  Installation
 
-1. **Clone or download the project**
+### Step 1: Update Ubuntu System
+
+```bash
+sudo apt update && sudo apt upgrade -y
+```
+
+### Step 2: Install Node.js 20 LTS using NodeSource Repository
+
+```bash
+# Install curl if not already installed
+sudo apt install -y curl
+
+# Add NodeSource repository for Node.js 20.x
+curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+
+# Install Node.js
+sudo apt install -y nodejs
+
+# Verify installation
+node --version  # Should show v20.x.x
+npm --version   # Should show v10.x.x
+```
+
+### Step 3: Install Git and Essential Build Tools
+
+```bash
+sudo apt install -y git build-essential python3-dev
+```
+
+### Step 4: Clone and Set Up Project
+
+1. **Clone the project**
    ```bash
    git clone <repository-url>
    cd dingocoin-scam-report-bot
@@ -45,39 +78,99 @@ Before setting up the bot, ensure you have:
 
 ##  Database Setup
 
-### Step 1: Install MariaDB
+### Step 1: Install MariaDB 11.4+ on Ubuntu 24.04
 
-**Linux (Ubuntu/Debian):**
+**Install MariaDB from Official Repository:**
+
 ```bash
+# Install software-properties-common if not already installed
+sudo apt install -y software-properties-common
+
+# Import MariaDB signing key
+curl -LsS https://r.mariadb.com/downloads/mariadb_repo_setup | sudo bash
+
+# Update package list
 sudo apt update
-sudo apt install mariadb-server
+
+# Install MariaDB server (latest stable version)
+sudo apt install -y mariadb-server mariadb-client
+
+# Start and enable MariaDB service
+sudo systemctl start mariadb
+sudo systemctl enable mariadb
+
+# Verify MariaDB is running
+sudo systemctl status mariadb
+```
+
+**Secure MariaDB Installation:**
+
+```bash
 sudo mysql_secure_installation
+```
+
+Follow the prompts:
+- Set root password (choose a strong password)
+- Remove anonymous users: **Y**
+- Disallow root login remotely: **Y** 
+- Remove test database: **Y**
+- Reload privilege tables: **Y**
+
+**Verify MariaDB Version:**
+
+```bash
+mariadb --version
+# Should show MariaDB 11.4.x or higher
 ```
 
 
 ### Step 2: Create Database and User
 
-1. **Login to MariaDB**
+1. **Login to MariaDB as root**
    ```bash
-   mysql -u root -p
+   sudo mariadb -u root -p
    ```
 
-2. **Create database and user**
+2. **Create database and user with enhanced security**
    ```sql
-   CREATE DATABASE scam_reports;
-   CREATE USER 'scambot'@'localhost' IDENTIFIED BY 'your_secure_password';
-   GRANT ALL PRIVILEGES ON scam_reports.* TO 'scambot'@'localhost';
+   -- Create the database
+   CREATE DATABASE scam_reports CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+   
+   -- Create user with strong password (replace with your own secure password)
+   CREATE USER 'scambot'@'localhost' IDENTIFIED BY 'YourSecurePassword123!';
+   
+   -- Grant necessary privileges
+   GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, ALTER, INDEX ON scam_reports.* TO 'scambot'@'localhost';
+   
+   -- Apply changes
    FLUSH PRIVILEGES;
+   
+   -- Verify user creation
+   SELECT User, Host FROM mysql.user WHERE User = 'scambot';
+   
+   -- Exit MariaDB
+   EXIT;
+   ```
+
+3. **Test the new user connection**
+   ```bash
+   mariadb -u scambot -p scam_reports
+   # Enter the password you set above
+   # If successful, you should see the MariaDB prompt
    EXIT;
    ```
 
 ### Step 3: Initialize Database Tables
 
 ```bash
+# Test database connection first
+npm run test-db
+
+# If connection is successful, initialize tables
 npm run setup
 ```
 
-This will create all necessary tables automatically.
+This will create all necessary tables automatically with proper indexes and constraints for optimal performance on MariaDB 11.4+.
 
 ##  Discord Bot Setup
 

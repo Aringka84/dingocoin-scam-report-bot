@@ -63,7 +63,9 @@ A comprehensive Discord bot for reporting and managing scam incidents with Maria
    npm start
    ```
 
-📖 **For detailed setup instructions, see [SETUP_GUIDE.md](SETUP_GUIDE.md)**
+📖 **For detailed setup instructions:**
+- **Ubuntu 24.04**: See [UBUNTU-24.04-SETUP.md](UBUNTU-24.04-SETUP.md)
+- **General setup**: See [SETUP_GUIDE.md](SETUP_GUIDE.md)
 
 ## 📋 Commands
 
@@ -84,8 +86,9 @@ A comprehensive Discord bot for reporting and managing scam incidents with Maria
 
 ## 🛠️ Requirements
 
-- **Node.js** v16.9.0+
-- **MariaDB** v10.4+
+- **Node.js** v20.0.0+ (Latest LTS)
+- **MariaDB** v11.4+ (Latest stable)
+- **Ubuntu** 24.04 LTS (Recommended)
 - **Discord Bot Token**
 - **Server Admin Permissions**
 
