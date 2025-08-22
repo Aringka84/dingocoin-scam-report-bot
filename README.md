@@ -2,6 +2,31 @@
 
 A comprehensive Discord bot for reporting and managing scam incidents with MariaDB storage, advanced image processing, and role-based moderation system.
 
+## Requirements
+
+- **Node.js** v20.0.0+ (Latest LTS)
+- **MariaDB** v11.4+ (Latest stable)
+- **Ubuntu** 24.04 LTS (Recommended)
+- **Discord Bot Token**
+- **Server Admin Permissions**
+
+## Commands
+
+### User Commands
+- `/report` - Submit a scam report with evidence
+
+### Moderator Commands (Guardian Role+)
+- `/viewreports` - View and filter reports
+- `/timeout` - Timeout a user
+
+### Admin Commands
+- `/kick` - Kick a user
+- `/ban` - Ban a user  
+- `/addadmin` - Add admin role to user
+- `/settings` - View bot configuration
+- `/clearreport` - Delete reports
+- `/exportdb` - Export database to CSV
+
 ## Features
 
 ### Report System
@@ -66,31 +91,6 @@ A comprehensive Discord bot for reporting and managing scam incidents with Maria
 **For detailed setup instructions:**
 - **Ubuntu 24.04**: See [UBUNTU-24.04-SETUP.md](UBUNTU-24.04-SETUP.md)
 - **General setup**: See [SETUP_GUIDE.md](SETUP_GUIDE.md)
-
-## 📋 Commands
-
-### User Commands
-- `/report` - Submit a scam report with evidence
-
-### Moderator Commands (Guardian Role+)
-- `/viewreports` - View and filter reports
-- `/timeout` - Timeout a user
-
-### Admin Commands
-- `/kick` - Kick a user
-- `/ban` - Ban a user  
-- `/addadmin` - Add admin role to user
-- `/settings` - View bot configuration
-- `/clearreport` - Delete reports
-- `/exportdb` - Export database to CSV
-
-## Requirements
-
-- **Node.js** v20.0.0+ (Latest LTS)
-- **MariaDB** v11.4+ (Latest stable)
-- **Ubuntu** 24.04 LTS (Recommended)
-- **Discord Bot Token**
-- **Server Admin Permissions**
 
 ## Project Structure
 
